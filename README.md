@@ -13,3 +13,8 @@ lógica para reduzir o tempo de procura?
 
 12. Modifique o programa anterior de forma a ler um número n. Imprima os n
 primeiros números primos.
+
+# Aula 03
+Os exercicios da aula 3 estao identificados com "exercícios aulas 3";
+O exercicio 02 em especial utiliza um docmuento .txt para salvar uma lista de itens que faz parte do codigo, sendo assim necessario que o arquivo.txt(palavras.txt) esteja na mesma pasta que o codigo exercicio-02.py
+
