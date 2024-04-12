@@ -1,20 +1,31 @@
-def verificar_numero(numero):
-    if numero % 2 == 0:
-        print(f"O número {numero} é par.")
+def verifica_parenteses(expressao):
+    pilha = []  
+
+    for caractere in expressao:
+        if caractere == '(':  
+            pilha.append(caractere)
+        elif caractere == ')':  
+            if not pilha:  
+                return False
+            
+            if pilha[-1] == '(':
+                pilha.pop()  
+            else:
+                return False  
+
+    
+    return not pilha
+
+while True:
+    
+    expressao_usuario = input("Digite a expressão com parênteses (ou 'sair' para encerrar): ")
+
+    if expressao_usuario.lower() == 'sair':
+        print("Programa encerrado. Até mais!")
+        break
+
+    
+    if verifica_parenteses(expressao_usuario):
+        print("Expressão válida! Os parênteses estão balanceados corretamente.")
     else:
-        print(f"O número {numero} é ímpar.")
-
-def main():
-    while True:
-        entrada = input("Digite um número inteiro ou 'fim' para encerrar: ")
-        if entrada.lower() == 'fim':
-            print("Encerrando o programa...")
-            break
-        try:
-            numero = int(entrada)
-            verificar_numero(numero)
-        except ValueError:
-            print("Por favor, digite um número inteiro válido ou 'fim' para encerrar.")
-
-if __name__ == "__main__":
-    main()
+        print("Expressão inválida! Verifique a ordem dos parênteses.")

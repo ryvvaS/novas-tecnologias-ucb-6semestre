@@ -1,38 +1,32 @@
-import math
+# Lista inicial de lugares vagos nas salas
+lugares_vagos = [10, 2, 1, 3, 0]
 
-def calcular_raizes(a, b, c):
-   
-    discriminante = b**2 - 4*a*c
-    
-    if discriminante < 0:
-        return None, None  
-        x1 = (-b + math.sqrt(discriminante)) / (2*a)
-        x2 = (-b - math.sqrt(discriminante)) / (2*a)
-        return x1, x2
+def exibir_lugares_vagos(lugares):
+    print("Utilização das salas:")
+    for num_sala, lugares_disponiveis in enumerate(lugares, start=1):
+        print(f"Sala {num_sala}: {lugares_disponiveis} lugar(es) vazio(s)")
 
-def main():
-    while True:
-        entrada = input("Digite os coeficientes da equação quadrática (a, b, c), separados por espaços, ou 'fim' para encerrar: ")
-        
-        if entrada.lower() == 'fim':
-            print("Encerrando o programa...")
-            break
-        
-        try:
-            coeficientes = [float(x) for x in entrada.split()]
-            if len(coeficientes) != 3:
-                print("Por favor, insira exatamente três coeficientes.")
-            else:
-                a, b, c = coeficientes
-                x1, x2 = calcular_raizes(a, b, c)
-                if x1 is None:
-                    print("Não há raízes reais para os coeficientes fornecidos.")
-                else:
-                    print("Raízes da equação quadrática:")
-                    print(f"x' = {x1}")
-                    print(f"x'' = {x2}")
-        except ValueError:
-            print("Por favor, insira coeficientes válidos ou 'fim' para encerrar.")
+while True:
+    exibir_lugares_vagos(lugares_vagos)
+    sala = int(input("Digite o número da sala (ou 0 para sair): "))
 
-if __name__ == "__main__":
-    main()
+    if sala == 0:
+        print("Programa encerrado. Até mais!")
+        break
+
+    if sala > len(lugares_vagos) or sala < 1:
+        print("Sala inválida")
+    elif lugares_vagos[sala - 1] == 0:
+        print("Desculpe, sala lotada!")
+    else:
+        lugares_solicitados = int(input(f"Quantos lugares você deseja ({lugares_vagos[sala - 1]} vagos): "))
+        if lugares_solicitados > lugares_vagos[sala - 1]:
+            print("Esse número de lugares não está disponível.")
+        elif lugares_solicitados < 0:
+            print("Número inválido")
+        else:
+            lugares_vagos[sala - 1] -= lugares_solicitados
+            print(f"{lugares_solicitados} lugares vendidos")
+
+# Exibe lugares vagos após as vendas
+exibir_lugares_vagos(lugares_vagos)

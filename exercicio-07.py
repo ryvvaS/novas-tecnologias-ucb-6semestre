@@ -1,29 +1,40 @@
-def converter_segundos_para_tempo(segundos):
-    # Nesse bloco de codigo estão defindas os calculos para número de dias, horas, minutos e segundos
-    dias = segundos // (24 * 3600)
-    horas = (segundos % (24 * 3600)) // 3600
-    minutos = (segundos % 3600) // 60
-    segundos_restantes = segundos % 60
-    
-    return dias, horas, minutos, segundos_restantes
+def exibe_tabuleiro(tabuleiro):
+    for linha in tabuleiro:
+        print(" ".join(map(str, linha)))
 
-def main():
+def verifica_vitoria(tabuleiro, jogador):
+    for i in range(3):
+        if all(tabuleiro[i][j] == jogador for j in range(3)) or all(tabuleiro[j][i] == jogador for j in range(3)):
+            return True
+    if tabuleiro[0][0] == tabuleiro[1][1] == tabuleiro[2][2] == jogador or tabuleiro[0][2] == tabuleiro[1][1] == tabuleiro[2][0] == jogador:
+        return True
+    return False
+
+def jogo_da_velha():
+    tabuleiro = [[0, 0, 0] for _ in range(3)]
+    jogadores = ["X", "O"]
+    jogador_atual = 0
+    jogadas = 0
+
     while True:
-        entrada = input("Digite a quantidade de segundos ou 'fim' para encerrar: ")
-        
-        if entrada.lower() == 'fim':
-            print("Encerrando o programa...")
-            break
-        
-        try:
-            segundos = int(entrada)
-            if segundos < 0:
-                print("Por favor, digite um valor positivo de segundos.")
-            else:
-                dias, horas, minutos, segundos_restantes = converter_segundos_para_tempo(segundos)
-                print(f"Resultado: {dias} dias, {horas} horas, {minutos} minutos e {segundos_restantes} segundos.")
-        except ValueError:
-            print("Por favor, digite um número inteiro válido ou 'fim' para encerrar.")
+        exibe_tabuleiro(tabuleiro)
+        linha = int(input(f"Jogador {jogadores[jogador_atual]}, escolha a linha (1 a 3): ")) - 1
+        coluna = int(input(f"Jogador {jogadores[jogador_atual]}, escolha a coluna (1 a 3): ")) - 1
+
+        if tabuleiro[linha][coluna] == 0:
+            tabuleiro[linha][coluna] = jogadores[jogador_atual]
+            jogadas += 1
+            if verifica_vitoria(tabuleiro, jogadores[jogador_atual]):
+                exibe_tabuleiro(tabuleiro)
+                print(f"Jogador {jogadores[jogador_atual]} venceu!")
+                break
+            elif jogadas == 9:
+                exibe_tabuleiro(tabuleiro)
+                print("Empate!")
+                break
+            jogador_atual = 1 - jogador_atual
+        else:
+            print("Posição ocupada. Escolha outra.")
 
 if __name__ == "__main__":
-    main()
+    jogo_da_velha()

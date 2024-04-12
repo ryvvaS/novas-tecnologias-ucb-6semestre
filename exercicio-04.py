@@ -1,22 +1,14 @@
-def separar_digitos(numero):
-    numero_str = str(numero)
-    for d in str(numero):
-        print(d, end="   ")
-def main():
-    while True:
-        print()
-        entrada = input("Digite um número de cinco dígitos ou 'fim' para encerrar: ")
-        if entrada.lower() == 'fim':
-            print("Encerrando o programa...")
-            break
-        try:
-            numero = int(entrada)
-            if len(entrada) != 5:
-                print("Por favor, insira um número de cinco dígitos.")
-            else: 
-                separar_digitos(numero)
-        except ValueError:
-            print("Por favor, digite um número inteiro válido ou 'fim' para encerrar.")
+# Lista de temperaturas em Mons, Bélgica
+T = [-10, -8, 0, 1, 2, 5, -2, -4]
 
-if __name__ == "__main__":
-    main()
+# Calcula a menor e a maior temperatura
+temperatura_minima = min(T)
+temperatura_maxima = max(T)
+
+# Temperatura média
+temperatura_media = sum(T) / len(T)
+
+
+print(f"Temperatura máxima: {temperatura_maxima} °C")
+print(f"Temperatura mínima: {temperatura_minima} °C")
+print(f"Temperatura média: {temperatura_media:} °C")
